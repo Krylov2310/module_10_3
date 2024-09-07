@@ -15,6 +15,7 @@ class Bank:
     def __init__(self):
         self.balance: int = 0
         self.lock = Lock()
+        self.str_balance = []
 
     def deposit(self):
         for tranzakcia in range(100):
@@ -22,19 +23,24 @@ class Bank:
                 self.lock.release()
             biliberda: int = randint(50, 500)
             self.balance += biliberda
-            print(f'Пополнение: \033[34m{biliberda}\033[0m. Баланс: \033[32m{self.balance:}\033[0m\n')
+            a1 = f'Пополнение: \033[34m{biliberda}\033[0m. Баланс: \033[32m{self.balance:}\033[0m'
+            self.str_balance.append(a1)
             sleep(0.001)
 
     def take(self):
         for request in range(100):
             biliberda: int = randint(50, 500)
-            print(f'Запрос на \033[35m{biliberda}\033[0m.\n')
+            a2 = f'Запрос на \033[35m{biliberda}\033[0m.'
+            # print(d)
+            self.str_balance.append(a2)
             if biliberda <= self.balance:
                 self.balance -= biliberda
-                print(f'Снятие: \033[33m{biliberda}\033[0m. Баланс: \033[32m{self.balance}\033[0m.\n')
+                a3 = f'Снятие: \033[33m{biliberda}\033[0m. Баланс: \033[32m{self.balance}\033[0m.'
+                self.str_balance.append(a3)
                 sleep(0.001)
             else:
-                print(f'\033[31mЗапрос откланен, недостаточно средств.\033[0m\n')
+                a4 = f'\033[31mЗапрос откланен, недостаточно средств.\033[0m'
+                self.str_balance.append(a4)
                 self.lock.acquire()
                 sleep(0.001)
 
@@ -50,6 +56,10 @@ th2.start()
 
 th1.join()
 th2.join()
+
+set_list = bk.str_balance
+for j in set_list:
+    print(j)
 
 print(f'Итоговый баланс: \033[32m{bk.balance}\033[0m')
 print()
