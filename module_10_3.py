@@ -31,7 +31,6 @@ class Bank:
         for request in range(100):
             biliberda: int = randint(50, 500)
             a2 = f'Запрос на \033[35m{biliberda}\033[0m.'
-            # print(d)
             self.str_balance.append(a2)
             if biliberda <= self.balance:
                 self.balance -= biliberda
